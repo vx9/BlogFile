@@ -1,12 +1,13 @@
 ---
 typora-copy-images-to: images
+typora-root-url: images
 ---
 
 
 
 [TOC]
 
-![typora](images/typora.png)
+![typora](typora.png)
 
 # Windows版本的Typora使用技巧#
 
