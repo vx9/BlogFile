@@ -2,13 +2,9 @@
 typora-copy-images-to: images
 ---
 
-
-
 [TOC]
 
 ![typora](images/typora.png)
-
-![QQ截图20170226154619](images/QQ截图20170226154619.png)
 
 # Windows版本的Typora使用技巧#
 
@@ -20,7 +16,7 @@ Typora是一款轻便简洁的Markdown编辑器，支持即时渲染技术，这
 
 本文将以自己 ***写MD文件经常会遇到的问题***  为基本出发点编写。
 
-> Markdown的详细的基本语法不做介绍，如需了解请看另一篇文章[稍后加上]()。
+> Markdown的详细的基本语法不做介绍，如需了解请看[typora在线文档](http://support.typora.io/Markdown-Reference/)。
 
 ### 1.如何显示文章大纲目录？###
 
@@ -47,7 +43,7 @@ Typora是一款轻便简洁的Markdown编辑器，支持即时渲染技术，这
 
 - 方法一：使用鼠标右键
 
-  选择文字，右键，选择Paragraph，选择Heading 3.
+  选择文字，右键，选择`Paragraph`，选择`Heading 3`.
 
 - 方法二：使用快捷键
 
@@ -55,7 +51,7 @@ Typora是一款轻便简洁的Markdown编辑器，支持即时渲染技术，这
 
 - 方法三：使用工具栏
 
-  选择文字，工具栏选择Paragraph，选择Heading 3.
+  选择文字，工具栏选择`Paragraph`，选择`Heading 3`.
 
   （就像在Word一样）
 
@@ -71,15 +67,27 @@ Typora是一款轻便简洁的Markdown编辑器，支持即时渲染技术，这
 
 ### 5.如何让插入图片变得轻松些？###
 
-文字支持粘贴复制图片，图片支持拖拽，但是不支持粘贴复制。（MacOS支持）
+1. 问题场景：如果从剪贴板得到的图片能复制到文章（拖拽图片），而且能够自动保存在某一位置就好了。
 
-问题场景：如果你的文章不单单是本地存储，自己留着看，如果你还要发布到别的地方（比如发个博客)，那你就会发现，图片路径这个是多么棘手的东西。
+   步骤一：`File`-->`Preference`-->`Editor`-->`Image Insert`-->`Allow copy images to given folder` 
 
-图片路径可以用绝对路径，也可以用相对路径，建议用相对路径。
+   步骤二：`Edit`-->`ImageTools`-->`When Insert Local Images`--> `Copy Image File to Folder...`
 
-方法：将图片与文章放在同一个文件夹下，使用相对路径表示图片。这样行吗？
+   > 以上步骤目的：在编辑文章时从剪贴板获得的图片或者拖拽图片，自动会将该图片存储到指定文件夹下。步骤二会出现文件夹选择框，选择你将要保存图片文件的文件夹位置。
 
+   > TIP：图片支持拖拽，但是图片不支持粘贴复制，但是却可以从剪贴板中粘贴，不知道为什么。
 
+2. 问题场景：如果拖拽的图片，粘贴的图片自动使用相对路径，就可以方便上传到GitHub了。
+
+   > 将图片与文章放在同一个文件夹下，方便使用相对路径表示图片。
+
+   方法一：`File`-->`Preference`-->`Editor`-->`Image Insert`-->`Allow relative path if possible` 
+
+   方法二：`Edit`-->`ImageTools`-->`When Insert Local Images`--> `Use Image Root Path`
+
+3. 问题场景：轻松发布到别的地方，比如CSDN博客？
+
+   > 没有很好的方法，有人推荐用MWeb+一系列工具，但是MWeb收费。我就先上传到GitHub，然后就手动给图片加上路径。
 
 
 
