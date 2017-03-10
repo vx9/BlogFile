@@ -1,17 +1,17 @@
-/*Ê¥±­²¼¾Ö float+relative+¸ºmargin
+/*åœ£æ¯å¸ƒå±€ float+relative+è´Ÿmargin
  <div id="content">
         <main>
-            main<br>Ö÷À¸
+            main<br>ä¸»æ 
         </main>
-        <!--À¸Ğ´ÔÚÇ°Ãæ£¬ÒòÎªÖ÷À¸±È²àÀ¸ÖØÒª£¬ËÑË÷ÒıÇæÊÇ´ÓÉÏÍùÏÂ½âÎöÄÚÈİµÄ¡£ÖĞÎÄÈç¹û³¬¹ı¿í¶È»á»»ĞĞ£¬Ó¢ÎÄÊı×Ö³¬¹ı²»»á×Ô¶¯»»ĞĞ¡£ĞèÒª¼ÓÉÏbreak-word:break-all;-->
-        <aside>aside<br>ÖĞÎÄÈç¹û³¬¹ı¿í¶È»á»»ĞĞ£¬¶ÔÓÚÁ¬ĞøµÄÓ¢ÎÄºÍÊı×Ö³¬¹ı²»»á×Ô¶¯»»ĞĞ¡£ĞèÒª¼ÓÉÏbreak-word:break-all;</aside>
+        <!--æ å†™åœ¨å‰é¢ï¼Œå› ä¸ºä¸»æ æ¯”ä¾§æ é‡è¦ï¼Œæœç´¢å¼•æ“æ˜¯ä»ä¸Šå¾€ä¸‹è§£æå†…å®¹çš„ã€‚ä¸­æ–‡å¦‚æœè¶…è¿‡å®½åº¦ä¼šæ¢è¡Œï¼Œè‹±æ–‡æ•°å­—è¶…è¿‡ä¸ä¼šè‡ªåŠ¨æ¢è¡Œã€‚éœ€è¦åŠ ä¸Šbreak-word:break-all;-->
+        <aside>aside<br>ä¸­æ–‡å¦‚æœè¶…è¿‡å®½åº¦ä¼šæ¢è¡Œï¼Œå¯¹äºè¿ç»­çš„è‹±æ–‡å’Œæ•°å­—è¶…è¿‡ä¸ä¼šè‡ªåŠ¨æ¢è¡Œã€‚éœ€è¦åŠ ä¸Šbreak-word:break-all;</aside>
   </div>
-mainºÍasideÈ«²¿float£¬aside¿í¶È¹Ì¶¨£¬main¿í¶È×ÔÊÊÓ¦¡£100%£»ÕâÑùmainÕ¼ÂúÒ»À¸£¬asideÔÚÏÂÒ»À¸¡£
-asideÀûÓÃmargin-left:-100%ÊµÏÖÉÏÉıµ½mainÒ»À¸µÄ×ó²à£¬Èç¹ûmargin-left:-aside¿í¶È ÊµÏÖÉÏÉıµ½mainÒ»À¸µÄÓÒ²à¡£
-ÎªÁË²»ÈÃasideÕÚ×¡mainµÄÄÚÈİ£¬¸ø¸¸ÔªËØ¼Ó£¨asideÔÚ×ó²à£©padding-left:aside¿í¶È;£¨asideÔÚÓÒ²à£©padding-right:aside¿í¶È£»
-aside×÷Îª¸¸ÔªËØÖĞµÄÒ»²¿·Ö£¬×ó/ÓÒ²à³öÏÖÁËaside×ÔÉí¿í¶ÈµÄ¿Õ°×£¬ËùÒÔÀûÓÃrelative×ÔÉí¶¨Î»£¬Ïà¶Ô×Ô¼ºÒÆÎ»¡£
+mainå’Œasideå…¨éƒ¨floatï¼Œasideå®½åº¦å›ºå®šï¼Œmainå®½åº¦è‡ªé€‚åº”ã€‚100%ï¼›è¿™æ ·mainå æ»¡ä¸€æ ï¼Œasideåœ¨ä¸‹ä¸€æ ã€‚
+asideåˆ©ç”¨margin-left:-100%å®ç°ä¸Šå‡åˆ°mainä¸€æ çš„å·¦ä¾§ï¼Œå¦‚æœmargin-left:-asideå®½åº¦ å®ç°ä¸Šå‡åˆ°mainä¸€æ çš„å³ä¾§ã€‚
+ä¸ºäº†ä¸è®©asideé®ä½mainçš„å†…å®¹ï¼Œç»™çˆ¶å…ƒç´ åŠ ï¼ˆasideåœ¨å·¦ä¾§ï¼‰padding-left:asideå®½åº¦;ï¼ˆasideåœ¨å³ä¾§ï¼‰padding-right:asideå®½åº¦ï¼›
+asideä½œä¸ºçˆ¶å…ƒç´ ä¸­çš„ä¸€éƒ¨åˆ†ï¼Œå·¦/å³ä¾§å‡ºç°äº†asideè‡ªèº«å®½åº¦çš„ç©ºç™½ï¼Œæ‰€ä»¥åˆ©ç”¨relativeè‡ªèº«å®šä½ï¼Œç›¸å¯¹è‡ªå·±ç§»ä½ã€‚
 http://www.cnblogs.com/tinyphp/p/4742922.html
-http://blog.doyoe.com/2013/12/02/css/marginÏµÁĞÖ®ÓëÏà¶ÔÆ«ÒÆµÄÒìÍ¬/
+http://blog.doyoe.com/2013/12/02/css/marginç³»åˆ—ä¹‹ä¸ç›¸å¯¹åç§»çš„å¼‚åŒ/
 */
 *{
     margin:0;
@@ -20,7 +20,6 @@ http://blog.doyoe.com/2013/12/02/css/marginÏµÁĞÖ®ÓëÏà¶ÔÆ«ÒÆµÄÒìÍ¬/
 .wrap{
     width:960px;
     margin:0 auto;
-    /*text-align:center;*/
 }
 header{
     height:50px;
@@ -31,7 +30,7 @@ header{
     margin-bottom:10px;
     padding-right:210px;
 }
-/*Çå³ı¸¡¶¯*/
+/*æ¸…é™¤æµ®åŠ¨*/
 #content:after{
     content:'.';
     display:block;
@@ -50,7 +49,7 @@ aside{
     float:left;
     width:200px;
     background:blue;
-    margin-left:-200px;/*ÕâÀï¸ºmarginÒªºÃºÃÀí½â£¬-200¾ÍÊÇÔÚ×îÓÒ±ß£¬-100%¾ÍÊÇÔÚ×î×ó±ß¡£*/
+    margin-left:-200px;
     position:relative;
     right:-210px;
 }
