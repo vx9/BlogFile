@@ -2,6 +2,8 @@
 
 [React/React Native 的ES5 ES6写法对照表][http://bbs.reactnative.cn/topic/15/react-react-native-%E7%9A%84es5-es6%E5%86%99%E6%B3%95%E5%AF%B9%E7%85%A7%E8%A1%A8]
 
+[es6][http://es6.ruanyifeng.com/]
+
 ## 箭头函数
 
 =>定义函数
@@ -231,3 +233,25 @@ foo.prop // 123
 // 将 foo 指向另一个对象，就会报错
 foo = {}; // TypeError: "foo" is read-only
 ```
+## 解构
+
+
+
+## class
+
+
+
+## 字符串扩展
+
+
+
+## 数组扩展
+
+
+
+## module
+
+
+
+## promise
+
