@@ -87,7 +87,7 @@ ReactDOM.render(
 
 React.createClass是构建组件，组件tag名作为变量，是个组件类，模板插入<组件tag名/>时，会自动生成组件类的一个实例。
 
-组件类可以有属性,跟原生的HTML标签完全一致，属性与this.props对象上一一对应。
+组件类可以有**属性,**跟原生的HTML标签完全一致，属性与`this.props.[属性名]`对象上一一对应。props属性一旦定义基本不变。`this.state`一般都是随着用户互动经常改变。
 
 ```jsx
 const MyMessage=React.createClass({
@@ -143,7 +143,7 @@ ReactDOM.render(
 ```jsx
 var MyTitle = React.createClass({
   propTypes: {
-    title:React.PropTypes.string.isRequired,/*验证必须是string且不能为空*/
+    title:React.PropTypes.string.isRequired,/*验证title属性必须是string且不能为空*/
   },
   
   render: funtion(){
@@ -158,6 +158,43 @@ ReactDOM.render(
 	document.body
 	);
 ```
+
+
+
+React.PropTypes.array           // 陣列
+
+React.PropTypes.bool.isRequired // Boolean 且必要。
+
+React.PropTypes.func            // 函式
+
+React.PropTypes.number          // 數字
+
+React.PropTypes.object          // 物件
+
+React.PropTypes.string          // 字串
+
+React.PropTypes.node            // 任何類型的: numbers, strings, elements 或者任何這種類型的陣列
+
+React.PropTypes.element         // React 元素
+
+React.PropTypes.instanceOf(XXX) // 某種XXX類別的實體
+
+React.PropTypes.oneOf(['foo', 'bar']) // 其中一個字串
+
+React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]) // 其中一種格式類型
+
+React.PropTypes.arrayOf(React.PropTypes.string)  // 某種類型的陣列(字串類型)
+
+React.PropTypes.objectOf(React.PropTypes.string) // 具有某種屬性類型的物件(字串類型)
+
+React.PropTypes.shape({                          // 是否符合指定格式的物件
+
+  color: React.PropTypes.string,
+  fontSize: React.PropTypes.number
+});
+React.PropTypes.any.isRequired  // 可以是任何格式，且必要。
+
+
 
 #### getDefaultProps方法
 
@@ -186,18 +223,45 @@ ReactDOM.render{
 
 组件并不是真实的 DOM 节点，而是存在于内存之中的一种数据结构，叫做虚拟 DOM （virtual DOM）。只有当它插入文档以后，才会变成真实的 DOM 。根据 React 的设计，所有的 DOM 变动，都先在虚拟 DOM 上发生，然后再将实际发生变动的部分，反映在真实 DOM上，这种算法叫做 [DOM diff](http://calendar.perfplanet.com/2013/diff/) ，它可以极大提高网页的性能表现。
 
-但是，有时需要从组件获取真实 DOM 的节点，这时就要用到 `ref` 属性。
+但是，有时需要从组件获取真实 DOM 的节点，这时就要用到 `ref` 属性。`this.refs.[ref名字]`
 
 ```jsx
 var MyComponent = React.createClass({
+  handleClient:function() {
+    this.refs.myTextInput.focus();/*设置定位输入框*/
+  },
   render:function() {
     return (
     	<div>
-    		<input type = "text" ref="myTextInput" />
+    		<input type = "text" ref="myTextInput" /><!-- 设置ref属性-->
     		<input type = "button" value = "Focus the text input" onClick = {this.handleClient} />
     	</div>);
   }
 });
 ```
 
- 
+ 需要注意的是，由于 `this.refs.[refName]` 属性获取的是真实 DOM ，所以必须等到虚拟 DOM 插入文档以后，才能使用这个属性，否则会报错。
+
+1. 给从 `render` 返回的东西分配 `ref` 属性，如：
+
+```
+<input ref="myInput" />
+```
+
+1. 在其他一些代码(典型的是事件处理程序的代码)，通过 `this.refs` 访问 **backing instance**，如：
+
+```
+this.refs.myInput
+```
+
+
+
+#### 用户互动this.state
+
+将组件看成是一个状态机，一开始有一个初始状态，然后用户互动，导致状态变化，从而触发重新渲染 UI 。
+
+组件中需要通过用户互动而改变的状态机属性，利用`this.state.[名字]`。
+
+
+
+**组件中的样式**：`{{opacity: this.state.opacity}}`

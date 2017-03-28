@@ -235,7 +235,225 @@ foo = {}; // TypeError: "foo" is read-only
 ```
 ## 解构
 
+。。。
 
+｛｝
+
+#### 数组解构
+
+```javascript
+let [a,b,c] = [1,2,3];
+//等同于
+let a = 1;
+let b=2;
+let c=3;
+```
+
+本质就是模式匹配，若匹配不成功，就等于undefined。
+
+##### 不完全解构
+
+＝左边比右边少。
+
+```javascript
+let [x, y] = [1, 2, 3];
+x // 1
+y // 2
+
+let [a, [b], d] = [1, [2, 3], 4];
+a // 1
+b // 2
+d // 4
+```
+
+##### ＝右边必须是可遍历的结构，数组等。否则会报错。
+
+```javascript
+// 报错
+let [foo] = 1;
+let [foo] = false;
+let [foo] = NaN;
+let [foo] = undefined;
+let [foo] = null;
+let [foo] = {};
+```
+
+解构可以有默认值，若＝右边成员严格等于undefined，就会等于默认值，否则默认值不生效。
+
+```javascript
+let [x = 1] = [undefined];
+x // 1
+
+let [x = 1] = [null];
+x // null
+```
+
+默认值可以引用解构赋值的其他变量，但该变量必须已经声明。
+
+```javascript
+let [x = 1, y = x] = [];     // x=1; y=1
+let [x = 1, y = x] = [2];    // x=2; y=2
+let [x = 1, y = x] = [1, 2]; // x=1; y=2
+let [x = y, y = 1] = [];     // ReferenceError
+```
+
+上面最后一个表达式之所以会报错，是因为`x`用到默认值`y`时，`y`还没有声明。
+
+#### 2.对象的解构
+
+对象的解构与数组有一个重要的不同。数组的元素是按**次序排列**的，变量的取值由它的**位置**决定；而对象的**属性没有次序**，变量必须**与属性同名，才能取到正确的值**。
+
+```javascript
+let { bar, foo } = { foo: "aaa", bar: "bbb" };
+foo // "aaa"
+bar // "bbb"
+
+let { baz } = { foo: "aaa", bar: "bbb" };
+baz // undefined
+```
+
+如果变量名与属性名不一致，必须写成下面这样。**右边属性模式：我的变量名**
+
+这实际上说明，对象的解构赋值是下面形式的简写（参见《对象的扩展》一章）。
+
+```javascript
+let { foo: foo, bar: bar } = { foo: "aaa", bar: "bbb" };
+```
+
+也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。**真正被赋值的是后者，而不是前者。**这里声明和赋值是一体的，**不能重新声明，否则报错**。
+
+```javascript
+let { foo: baz } = { foo: "aaa", bar: "bbb" };
+baz // "aaa"
+foo // error: foo is not defined
+```
+
+上面代码中，`foo`是匹配的**模式**，`baz`才是**变量**。真正被赋值的是变量`baz`，而不是模式`foo`。
+
+```javascript
+let obj = {};
+let arr = [];
+
+({ foo: obj.prop, bar: arr[0] } = { foo: 123, bar: true });
+
+obj // {prop:123}
+arr // [true]
+```
+
+对象的解构也可以指定默认值。
+
+```javascript
+var {x = 3} = {};
+x // 3
+
+var {x, y = 5} = {x: 1};
+x // 1
+y // 5
+
+var {x:y = 3} = {};
+y // 3
+
+var {x:y = 3} = {x: 5};
+y // 5
+
+var { message: msg = 'Something went wrong' } = {};
+msg // "Something went wrong"
+```
+
+默认值生效的条件是，对象的属性值严格等于`undefined`。
+
+圆括号和赋值解构
+
+##### 3.解构字符串／数值／布尔值
+
+解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。
+
+```
+const [a, b, c, d, e] = 'hello';
+a // "h"
+b // "e"
+c // "l"
+d // "l"
+e // "o"
+
+```
+
+类似数组的对象都有一个`length`属性，因此还可以对这个属性解构赋值。
+
+```
+let {length : len} = 'hello';
+len // 5
+```
+
+解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。
+
+```
+let {toString: s} = 123;
+s === Number.prototype.toString // true
+
+let {toString: s} = true;
+s === Boolean.prototype.toString // true
+```
+
+##### 4.函数参数的解构赋值
+
+函数的参数也可以使用解构赋值。
+
+```javascript
+function add([x, y]){
+  return x + y;
+}
+
+add([1, 2]); // 3
+```
+
+上面代码中，函数`add`的参数表面上是一个数组，但在传入参数的那一刻，数组参数就被解构成变量`x`和`y`。对于函数内部的代码来说，它们能感受到的参数就是`x`和`y`。
+
+下面是另一个例子。
+
+```javascript
+[[1, 2], [3, 4]].map(([a, b]) => a + b);
+// [ 3, 7 ]
+```
+
+函数参数的解构也可以使用默认值。
+
+```javascript
+function move({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, 0]
+move({}); // [0, 0]
+move(); // [0, 0]
+```
+
+上面代码中，函数`move`的参数是一个对象，通过对这个对象进行解构，得到变量`x`和`y`的值。如果解构失败，`x`和`y`等于默认值。
+
+注意，下面的写法会得到不一样的结果。
+
+```javascript
+function move({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, undefined]
+move({}); // [undefined, undefined]
+move(); // [0, 0]
+```
+
+上面代码是为函数`move`的参数指定默认值，而不是为变量`x`和`y`指定默认值，所以会得到与前一种写法不同的结果。
+
+`undefined`就会触发函数参数的默认值。
+
+```javascript
+[1, undefined, 3].map((x = 'yes') => x);
+// [ 1, 'yes', 3 ]
+```
+
+**5.圆括号问题**
 
 ## class
 
@@ -251,7 +469,150 @@ foo = {}; // TypeError: "foo" is read-only
 
 ## module
 
+#### export
 
+对外输出方法／对象／类，与内部变量**一一对应**,且自动实时变化。
+
+处于顶层位置。
+
+```javascript
+var n = 1;
+export {n as m};/*as 重新命名～*/
+
+export {n};	
+
+export function area(radius) {
+  return Math.PI * radius * radius;
+}
+```
+
+#### import
+
+import提升效果，最先执行。在编译阶段，在代码运行阶段之前执行。
+
+import是静态执行，所以不能有表达式和变量
+
+```javascript
+import {first as f,last} from './profile';
+/*as 重新命名～.js可以省略*/
+
+function setName(el) {
+  element.textContent = f +'' +last;
+}
+
+import * as circle from './circle';/*整体加载*/
+```
+
+```javascript
+// 报错
+import { 'f' + 'oo' } from 'my_module';
+
+// 报错
+let module = 'my_module';
+import { foo } from module;
+
+// 报错
+if (x === 1) {
+  import { foo } from 'module1';
+} else {
+  import { foo } from 'module2';
+}
+```
+
+整体加载
+
+除了指定加载某个输出值，还可以使用整体加载，即用星号（`*`）指定一个对象，所有输出值都加载在这个对象上面。
+
+下面是一个`circle.js`文件，它输出两个方法`area`和`circumference`。
+
+```java
+// circle.js
+
+export function area(radius) {
+  return Math.PI * radius * radius;
+}
+
+export function circumference(radius) {
+  return 2 * Math.PI * radius;
+}
+```
+
+现在，加载这个模块。
+
+```javascript
+// main.js
+
+import { area, circumference } from './circle';
+
+console.log('圆面积：' + area(4));
+console.log('圆周长：' + circumference(14));
+```
+
+上面写法是逐一指定要加载的方法，整体加载的写法如下。
+
+```javascript
+import * as circle from './circle';
+
+console.log('圆面积：' + circle.area(4));
+console.log('圆周长：' + circle.circumference(14));
+```
+
+注意，模块整体加载所在的那个对象（上例是`circle`），应该是可以静态分析的，所以不允许运行时改变。下面的写法都是不允许的。
+
+```javascript
+import * as circle from './circle';
+
+// 下面两行都是不允许的
+circle.foo = 'hello';
+circle.area = function () {};
+```
+
+#### export default
+
+一个模块只能有一个`export default`,本质上 ，就是输出一个叫做default的变量或者方法，系统允许用户给他起名字，但default只能有一个。
+
+不用知道变量名或者函数名，就可以加载，不用阅读文档就能加载，为模块指定默认输出。
+
+```javascript
+//export-default.js
+export default function () {
+  console.log('foo');
+}
+```
+
+其他模块加载时，import命令可以任意给匿名函数指定任意名字。import没有大括号。
+
+```javascript
+//import-default.js
+import custom from './export-default.js';
+custom();//foo
+```
+
+如果想在一条`import`语句中，同时输入默认方法和其他变量，可以写成下面这样。
+
+```javascript
+import _, { each } from 'lodash';
+```
+
+如果想在一条`import`语句中，同时输入默认方法和其他变量，可以写成下面这样。
+
+```javascript
+import _, { each } from 'lodash';
+```
+
+#### import export复合写法
+
+如果在一个模块之中，先输入后输出同一个模块，`import`语句可以与`export`语句写在一起。
+
+```javascript
+export { foo, bar } from 'my_module';
+
+// 等同于
+import { foo, bar } from 'my_module';
+export { foo, bar };
+```
+
+上面代码中，`export`和`import`语句可以结合在一起，写成一行。
 
 ## promise
 
